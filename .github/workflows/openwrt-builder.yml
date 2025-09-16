@@ -88,7 +88,14 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
-
+        
+    - name: Clean disk space before compile
+      run: |
+        sudo apt-get clean
+        sudo rm -rf /usr/local/lib/android /opt/ghc /usr/local/share/boost
+        sudo rm -rf /opt/hostedtoolcache/CodeQL /opt/microsoft
+        df -h     
+        
     - name: Compile the firmware
       id: compile
       run: |
